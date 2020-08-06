@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7b6842a700c5f641313415277af41a94",
+    "revision": "bf1cc7f5afbf28003f86e0c6ac715fe9",
     "url": "/battleships/index.html"
   },
   {
-    "revision": "1b3775f5d376ec4dcdf6",
+    "revision": "444a5f2c9805eaa76766",
     "url": "/battleships/static/css/main.baca8df5.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/battleships/static/js/2.908986a3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1b3775f5d376ec4dcdf6",
-    "url": "/battleships/static/js/main.206263d3.chunk.js"
+    "revision": "444a5f2c9805eaa76766",
+    "url": "/battleships/static/js/main.09c58eb7.chunk.js"
   },
   {
     "revision": "a21a250d89d7f7ea8e25",
@@ -36,7 +36,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/battleships/static/media/hit.fe715841.mp3"
   },
   {
-    "revision": "42cf52fce618530b7ba16d58daa1564d",
-    "url": "/battleships/static/media/miss.42cf52fc.mp3"
+    "revision": "6983ea7b6578751ba0071681e8048c0d",
+    "url": "/battleships/static/media/miss.6983ea7b.mp3"
   }
 ]);

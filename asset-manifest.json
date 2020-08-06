@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/battleships/static/css/main.baca8df5.chunk.css",
-    "main.js": "/battleships/static/js/main.206263d3.chunk.js",
-    "main.js.map": "/battleships/static/js/main.206263d3.chunk.js.map",
+    "main.js": "/battleships/static/js/main.09c58eb7.chunk.js",
+    "main.js.map": "/battleships/static/js/main.09c58eb7.chunk.js.map",
     "runtime-main.js": "/battleships/static/js/runtime-main.a92e764b.js",
     "runtime-main.js.map": "/battleships/static/js/runtime-main.a92e764b.js.map",
     "static/js/2.908986a3.chunk.js": "/battleships/static/js/2.908986a3.chunk.js",
     "static/js/2.908986a3.chunk.js.map": "/battleships/static/js/2.908986a3.chunk.js.map",
     "index.html": "/battleships/index.html",
-    "precache-manifest.7c428508d71facd7ed89930e8789b7fb.js": "/battleships/precache-manifest.7c428508d71facd7ed89930e8789b7fb.js",
+    "precache-manifest.1f5edb66a7788d21d90c639bdd249dee.js": "/battleships/precache-manifest.1f5edb66a7788d21d90c639bdd249dee.js",
     "service-worker.js": "/battleships/service-worker.js",
     "static/css/main.baca8df5.chunk.css.map": "/battleships/static/css/main.baca8df5.chunk.css.map",
     "static/js/2.908986a3.chunk.js.LICENSE.txt": "/battleships/static/js/2.908986a3.chunk.js.LICENSE.txt",
     "static/media/App.css": "/battleships/static/media/9WJwqM.29d94e82.jpg",
     "static/media/background.mp3": "/battleships/static/media/background.780462c2.mp3",
     "static/media/hit.mp3": "/battleships/static/media/hit.fe715841.mp3",
-    "static/media/miss.mp3": "/battleships/static/media/miss.42cf52fc.mp3"
+    "static/media/miss.mp3": "/battleships/static/media/miss.6983ea7b.mp3"
   },
   "entrypoints": [
     "static/js/runtime-main.a92e764b.js",
     "static/js/2.908986a3.chunk.js",
     "static/css/main.baca8df5.chunk.css",
-    "static/js/main.206263d3.chunk.js"
+    "static/js/main.09c58eb7.chunk.js"
   ]
 }
