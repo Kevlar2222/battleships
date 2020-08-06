@@ -1,5 +1,8 @@
 import React from "react";
 import "./App.css";
+import missAudio from "./miss.mp3";
+import hitAudio from "./hit.mp3";
+import background from "./background.mp3";
 
 class App extends React.Component {
   constructor(props) {
@@ -188,6 +191,9 @@ class App extends React.Component {
       }
     }
     if (event.target.textContent === "PLAY") {
+      const music = document.getElementsByClassName("audio-element")[2];
+      music.play();
+      music.loop = true;
       this.setState({ playerGridDisplay: "visible" });
       this.setState({ shipPlacer: "visibleShipHolder" });
       event.target.textContent = "READY";
@@ -210,6 +216,7 @@ class App extends React.Component {
       playerBoard[move] = "H";
       if (playerBoard.includes("S") === false) {
         this.setState({ gameIsWon: "Computer" });
+        document.body.style.overflow = "scroll";
       }
     }
     this.setState({ playerBoard: playerBoard });
@@ -338,6 +345,8 @@ class App extends React.Component {
     let cellList = Array.from(event.target.parentNode.children);
     let current = cellList.indexOf(event.target);
     let valid = false;
+    const audioMiss = document.getElementsByClassName("audio-element")[0];
+    const audioHit = document.getElementsByClassName("audio-element")[1];
     const cells = Array.from(document.querySelectorAll(".hovered"));
     cells.forEach((cell) => cell.classList.remove("hovered"));
     let computerBoard = [...this.state.computerBoard];
@@ -347,6 +356,9 @@ class App extends React.Component {
       this.setState({ computerBoard: computerBoard });
       event.target.classList.remove("cell");
       event.target.classList.add("miss");
+      audioMiss.pause();
+      audioMiss.currentTime = 0;
+      audioMiss.play();
     }
     if (computerBoard[current] === "S") {
       valid = true;
@@ -354,8 +366,12 @@ class App extends React.Component {
       this.setState({ computerBoard: computerBoard });
       event.target.classList.remove("cell");
       event.target.classList.add("hit");
+      audioHit.pause();
+      audioHit.currentTime = 0;
+      audioHit.play();
       if (computerBoard.includes("S") === false) {
         this.setState({ gameIsWon: "Player" });
+        document.body.style.overflow = "scroll";
       }
     }
     if (valid) {
@@ -388,6 +404,15 @@ class App extends React.Component {
   render() {
     return (
       <div id="gameContainer">
+        <audio className="audio-element">
+          <source src={missAudio}></source>
+        </audio>
+        <audio className="audio-element">
+          <source src={hitAudio}></source>
+        </audio>
+        <audio className="audio-element">
+          <source src={background}></source>
+        </audio>
         <Title />
         <GameOver displayable={this.state.gameIsWon} />
         <Button
