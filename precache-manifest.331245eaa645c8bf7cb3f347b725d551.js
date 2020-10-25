@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bf1cc7f5afbf28003f86e0c6ac715fe9",
+    "revision": "a0f35cbd71654a20ae61a7afe33548f5",
     "url": "/battleships/index.html"
   },
   {
-    "revision": "444a5f2c9805eaa76766",
-    "url": "/battleships/static/css/main.baca8df5.chunk.css"
+    "revision": "4f5ac877831b700bfaf9",
+    "url": "/battleships/static/css/main.7050977a.chunk.css"
   },
   {
     "revision": "b9585d4841364c903c12",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/battleships/static/js/2.908986a3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "444a5f2c9805eaa76766",
-    "url": "/battleships/static/js/main.09c58eb7.chunk.js"
+    "revision": "4f5ac877831b700bfaf9",
+    "url": "/battleships/static/js/main.2f738bef.chunk.js"
   },
   {
     "revision": "a21a250d89d7f7ea8e25",
