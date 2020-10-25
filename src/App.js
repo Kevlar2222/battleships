@@ -215,8 +215,7 @@ class App extends React.Component {
     } else {
       playerBoard[move] = "H";
       if (playerBoard.includes("S") === false) {
-        this.setState({ gameIsWon: "Computer" });
-        document.body.style.overflow = "scroll";
+        this.setState({ gameIsWon: "COMPUTER" });
       }
     }
     this.setState({ playerBoard: playerBoard });
@@ -370,8 +369,7 @@ class App extends React.Component {
       audioHit.currentTime = 0;
       audioHit.play();
       if (computerBoard.includes("S") === false) {
-        this.setState({ gameIsWon: "Player" });
-        document.body.style.overflow = "scroll";
+        this.setState({ gameIsWon: "PLAYER" });
       }
     }
     if (valid) {
@@ -701,9 +699,6 @@ function Title() {
       <div id="title">
         <h1>Battleships</h1>
       </div>
-      <div id="subtitle">
-        <h2>By Kevin Satti</h2>
-      </div>
     </div>
   );
 }
@@ -721,7 +716,7 @@ function Button(props) {
 function GameOver(props) {
   return (
     <div className={props.displayable}>
-      <div className="text">{props.displayable} Wins!</div>
+      <div className="text">{props.displayable} WINS!</div>
     </div>
   );
 }
