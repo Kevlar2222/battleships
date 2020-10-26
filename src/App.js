@@ -697,6 +697,7 @@ function Title() {
   return (
     <div>
       <div id="title">
+      Battleships
       </div>
     </div>
   );
