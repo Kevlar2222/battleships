@@ -697,7 +697,6 @@ function Title() {
   return (
     <div>
       <div id="title">
-        <h1>Battleships</h1>
       </div>
     </div>
   );
