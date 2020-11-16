@@ -9,6 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       buttonDisplay: "visibleButton",
+      //Fixed computer coordinates
       computerBoard: [
         0,
         0,
@@ -118,6 +119,11 @@ class App extends React.Component {
       playerGridDisplay: "invisible",
       vertical: "vertical",
       shipPlacer: "invisible",
+      /* 
+      Player's ships stored as an array of objects.
+      Each Object will store ship class names for CSS
+      as well as the ships length and position.
+      */
       ships: [
         {},
         {},
@@ -164,6 +170,10 @@ class App extends React.Component {
   }
 
   buttonClicked(event) {
+    /*
+    Checks all ships are validly placed, then records "S"
+    for each ship coordinate in the playerBoard state object.
+    */
     if (event.target.textContent === "READY") {
       if (
         this.state.ships[2].coordinates.length !== 0 &&
@@ -190,6 +200,7 @@ class App extends React.Component {
         this.setState({ playerBoard: playerBoard });
       }
     }
+    //Starts the music and allows player to place ships
     if (event.target.textContent === "PLAY") {
       const music = document.getElementsByClassName("audio-element")[2];
       music.play();
@@ -201,6 +212,12 @@ class App extends React.Component {
   }
 
   computerAttack() {
+    /*
+    Gets all available moves, randomly selects one, then
+    updates the playerBoard state object. Checks for a computer
+    win if it hits.
+    */
+
     let playerBoard = [...this.state.playerBoard];
     let availableMoves = [];
     for (let i = 0; i < playerBoard.length; i++) {
@@ -222,9 +239,14 @@ class App extends React.Component {
   }
 
   dropShip(event) {
+    /*
+    First get the highlighted cells where we will drop the ship and
+    change their colour.
+    */
     const cells = Array.from(document.querySelectorAll(".hovered"));
     cells.forEach((cell) => cell.classList.add("ship"));
     cells.forEach((cell) => cell.classList.remove("hovered"));
+    //Next get the state object for the ships and update it.
     let ships = [...this.state.ships];
     let currentShip = { ...ships[cells.length] };
     currentShip.draggable = false;
@@ -235,14 +257,20 @@ class App extends React.Component {
   }
 
   flipShips(event) {
+    // User pressed the button to flip the direction of the ships.
     let ships = [...this.state.ships];
     if (this.state.vertical === "vertical") {
       for (let i = 2; i <= 5; i++) {
+        // Get all ships not yet placed and change the CSS classes (for border lines)
         if (ships[i].classes !== "placed") {
           ships[i].classes = "shipCellHorizontal";
           ships[i].endCell = "shipCellHorizontal endcell";
         }
       }
+      /*
+      The direction property is used later for the ship id, and targeted by CSS. It dictates the
+      number of rows and columns and hence direction, e.g. 5 x 1 goes to 1 x 5.
+      */
       ships[2].direction = "twoShipHorizontal";
       ships[3].direction = "threeShipHorizontal";
       ships[4].direction = "fourShipHorizontal";
@@ -251,6 +279,7 @@ class App extends React.Component {
       this.setState({ vertical: "horizontal" });
       this.setState({ shipPlacer: "horizontalShipHolder" });
     } else {
+      // Second case is going from horizontal to vertical
       for (let j = 2; j <= 5; j++) {
         if (ships[j].classes !== "placed") {
           ships[j].classes = "shipCell";
@@ -268,32 +297,41 @@ class App extends React.Component {
   }
 
   getCoordinates(event) {
+    // Function for highlighting cells where dragged ship would land if dropped.
     event.preventDefault();
     let shipLength = this.state.draggedShipLength;
     let position = [];
     let direction = this.state.vertical;
+    // Get all 100 cells and store in variable cellList.
     let cellList = Array.from(event.target.parentNode.children);
     let current = cellList.indexOf(event.target);
     if (direction === "vertical") {
+      // Vertical ship would occupy every 10th cell e.g. 11, 21, 31.
       for (let i = 0; i < shipLength; i++) {
         position.push(current + i * 10);
       }
+      // First remove any previously highlighted cells.
       const cells = Array.from(document.querySelectorAll(".hovered"));
       cells.forEach((cell) => cell.classList.remove("hovered"));
+      // Make sure ship is not over the bottom of the grid
       if (position[shipLength - 1] < 100) {
         for (let j = 0; j < shipLength; j++) {
+          // Make sure each cell is free
           if (cellList[position[j]].classList.contains("ship")) {
             return;
           }
         }
+        // Update coordinates in state object
         let ships = [...this.state.ships];
         let currentShip = { ...ships[position.length] };
         currentShip.coordinates = position;
         ships[position.length] = currentShip;
         this.setState({ ships: ships });
+        // Highlight cells
         position.forEach((cell) => cellList[cell].classList.add("hovered"));
       }
     } else {
+      // Horizontal ships occupy consequtive cells
       for (let k = 0; k < shipLength; k++) {
         position.push(current + k);
       }
@@ -301,33 +339,41 @@ class App extends React.Component {
       cells.forEach((cell) => cell.classList.remove("hovered"));
       if (
         position[shipLength - 1] < 100 &&
+        // Make sure ship won't go over the edge / span two lines
         position[0] % 10 < position[shipLength - 1] % 10
       ) {
         for (let w = 0; w < shipLength; w++) {
+          // Make sure all cells are currently empty
           if (cellList[position[w]].classList.contains("ship")) {
             return;
           }
         }
+        // Update coordinates in the state object
         let ships = [...this.state.ships];
         let currentShip = { ...ships[position.length] };
         currentShip.coordinates = position;
         ships[position.length] = currentShip;
         this.setState({ ships: ships });
+        //Highlight cells
         position.forEach((cell) => cellList[cell].classList.add("hovered"));
       }
     }
   }
 
   getDraggedShip(event) {
+    // Length of ship = number of divs
     this.setState({ draggedShipLength: event.target.childElementCount });
   }
 
   hoverGrid(event) {
+    // Function to highlight current cell when mouse is over it
     let cellList = Array.from(event.target.parentNode.children);
     let current = cellList.indexOf(event.target);
+    // First remove highlight from any other cells.
     const cells = Array.from(document.querySelectorAll(".hovered"));
     cells.forEach((cell) => cell.classList.remove("hovered"));
     if (
+      // Check current cell has not already been shot ("M" = miss, "H" = hit)
       this.state.computerBoard[current] !== "M" &&
       this.state.computerBoard[current] !== "H"
     ) {
@@ -336,6 +382,7 @@ class App extends React.Component {
   }
 
   mouseLeftGrid() {
+    //Remove all highlights when mouse leaves the grid
     const cells = Array.from(document.querySelectorAll(".hovered"));
     cells.forEach((cell) => cell.classList.remove("hovered"));
   }
@@ -344,13 +391,17 @@ class App extends React.Component {
     let cellList = Array.from(event.target.parentNode.children);
     let current = cellList.indexOf(event.target);
     let valid = false;
+    // Splash and explosion sound effects
     const audioMiss = document.getElementsByClassName("audio-element")[0];
     const audioHit = document.getElementsByClassName("audio-element")[1];
+    // Remove all highlight effects from cells
     const cells = Array.from(document.querySelectorAll(".hovered"));
     cells.forEach((cell) => cell.classList.remove("hovered"));
     let computerBoard = [...this.state.computerBoard];
     if (computerBoard[current] === 0) {
+      // Can fire as 0 represents empty cell
       valid = true;
+      // Replace with "M" for miss
       computerBoard[current] = "M";
       this.setState({ computerBoard: computerBoard });
       event.target.classList.remove("cell");
@@ -360,7 +411,9 @@ class App extends React.Component {
       audioMiss.play();
     }
     if (computerBoard[current] === "S") {
+      // Can fire as "S" represents ship
       valid = true;
+      // Replace with "H" for hit
       computerBoard[current] = "H";
       this.setState({ computerBoard: computerBoard });
       event.target.classList.remove("cell");
@@ -373,11 +426,16 @@ class App extends React.Component {
       }
     }
     if (valid) {
+      // Run computer turn only if player successfully made a move
       this.computerAttack();
     }
   }
 
   renderPlayerGrid(cell) {
+    /*
+    Update grid with colours representing hit, miss.
+    Maintain border lines at ends of rows and columns when updated.
+    */
     let playerBoard = [...this.state.playerBoard];
     let classname = "cell";
     if (playerBoard[cell] === "M") {
